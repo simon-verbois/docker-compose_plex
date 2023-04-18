@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: plex
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - "/volume1/media/plex_medias/Movies:/movies:rw"
+      - "/volume1/media/plex_medias/TV Shows:/series:rw"
+      - "/volume1/media/plex_medias/Anime:/anime:rw"
+      - "./data:/config:rw"
+      - "./backup:/db_backup:rw"
+    networks:
+      - frontend
+    devices:
+      - /dev/dri:/dev/dri
+      
+networks:
+  frontend:
+    external: true
